@@ -1,0 +1,1755 @@
+1.Write a program to create a singly linked list and display its elements.
+#include <stdio.h>
+#include <stdlib.h>
+struct Node{
+    int data;
+    struct Node *next;
+};
+struct Node* createNode(int data){
+    struct Node *newnode = malloc(sizeof(struct Node));
+    newnode->data = data;
+    newnode->next =NULL;
+    return newnode;
+} 
+void insertAtEnd(struct Node **head,int data){
+    struct Node *newnode = createNode(data);
+    
+    if(*head==NULL){
+        *head = newnode;
+        return;
+    }
+    struct Node *temp = *head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=newnode;
+    
+}
+void display(struct Node **head){
+    struct Node *temp = *head;
+    while(temp!=NULL){
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+}
+int main()
+{
+    struct Node *head=NULL;
+    insertAtEnd(&head,10);
+    insertAtEnd(&head,15);
+    display(&head);
+    return 0;
+}
+
+2.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertAtBeginning(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    newNode->next = *head;
+    *head = newNode;
+}
+
+void insertAtEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+
+void insertAtMiddle(struct Node** head, int data, int position) {
+    if (*head == NULL || position == 0) {
+        insertAtBeginning(head, data);
+        return;
+    }
+    struct Node* newNode = createNode(data);
+    struct Node* temp = *head;
+    for (int i = 0; i < position - 1 && temp->next != NULL; i++) {
+        temp = temp->next;
+    }
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+int main() {
+    struct Node* head = NULL;
+
+    insertAtBeginning(&head, 10);
+    printf("After inserting at the beginning: ");
+    printList(head);
+
+    
+    insertAtEnd(&head, 30);
+    printf("After inserting at the end: ");
+    printList(head);
+
+    
+    insertAtMiddle(&head, 20, 1);
+    printf("After inserting in the middle: ");
+    printList(head);
+
+    return 0;
+}
+
+
+3. #include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+void deleteFromBeginning(struct Node** head) {
+    if (*head == NULL) {
+        printf("List is empty, nothing to delete.\n");
+        return;
+    }
+    struct Node* temp = *head;
+    *head = (*head)->next;
+    free(temp);
+}
+
+
+void deleteFromEnd(struct Node** head) {
+    if (*head == NULL) {
+        printf("List is empty, nothing to delete.\n");
+        return;
+    }
+    if ((*head)->next == NULL) {
+        free(*head);
+        *head = NULL;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+    free(temp->next);
+    temp->next = NULL;
+}
+
+
+void deleteFromMiddle(struct Node** head, int position) {
+    if (*head == NULL) {
+        printf("List is empty, nothing to delete.\n");
+        return;
+    }
+    if (position == 0) {
+        deleteFromBeginning(head);
+        return;
+    }
+    struct Node* temp = *head;
+    for (int i = 0; i < position - 1 && temp->next != NULL; i++) {
+        temp = temp->next;
+    }
+    if (temp->next == NULL) {
+        printf("Position out of range.\n");
+        return;
+    }
+    struct Node* toDelete = temp->next;
+    temp->next = temp->next->next;
+    free(toDelete);
+}
+
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+int main() {
+    struct Node* head = NULL;
+
+   
+    head = createNode(10);
+    head->next = createNode(20);
+    head->next->next = createNode(30);
+    head->next->next->next = createNode(40);
+
+    printf("Original list: ");
+    printList(head);
+
+    
+    deleteFromBeginning(&head);
+    printf("After deleting from the beginning: ");
+    printList(head);
+
+    
+    deleteFromEnd(&head);
+    printf("After deleting from the end: ");
+    printList(head);
+
+   
+    deleteFromMiddle(&head, 1);
+    printf("After deleting from the middle: ");
+    printList(head);
+
+    return 0;
+}
+
+
+4.#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+int countNodes(struct Node* head) {
+    int count = 0;
+    struct Node* current = head;
+
+    
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+
+    return count;
+}
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Memory allocation error\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+int main() {
+    
+    struct Node* head = createNode(10);
+    head->next = createNode(20);
+    head->next->next = createNode(30);
+
+    
+    int nodeCount = countNodes(head);
+    printf("Number of nodes in the linked list: %d\n", nodeCount);
+
+    
+    struct Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}
+
+
+5.#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+bool search(struct Node* head, int key) {
+    struct Node* current = head;
+
+    
+    while (current != NULL) {
+        if (current->data == key) {
+            return true; 
+        }
+        current = current->next;
+    }
+    return false; 
+}
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Memory allocation error\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+int main() {
+    struct Node* head = createNode(10);
+    head->next = createNode(20);
+    head->next->next = createNode(30);
+
+    
+    int key = 20;
+
+    
+    if (search(head, key)) {
+        printf("Value %d found in the linked list.\n", key);
+    } else {
+        printf("Value %d not found in the linked list.\n", key);
+    }
+
+    
+    struct Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}
+
+6.#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+struct Node* reverseLinkedList(struct Node* head) {
+    struct Node* prev = NULL;
+    struct Node* current = head;
+    struct Node* next = NULL;
+
+    while (current != NULL) {
+        next = current->next; 
+        current->next = prev; 
+        prev = current;       
+        current = next;       
+    }
+    head = prev; 
+    return head;
+}
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+int main() {
+    struct Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+
+    printf("Original Linked List: \n");
+    printList(head);
+
+    head = reverseLinkedList(head);
+
+    printf("Reversed Linked List: \n");
+    printList(head);
+
+    return 0;
+}
+
+
+7.#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+struct Node* mergeSortedLists(struct Node* list1, struct Node* list2) {
+    
+    struct Node dummy;
+    struct Node* tail = &dummy;
+    dummy.next = NULL;
+
+    while (list1 != NULL && list2 != NULL) {
+        if (list1->data <= list2->data) {
+            tail->next = list1;
+            list1 = list1->next;
+        } else {
+            tail->next = list2;
+            list2 = list2->next;
+        }
+        tail = tail->next;
+    }
+
+    
+    if (list1 != NULL) {
+        tail->next = list1;
+    } else {
+        tail->next = list2;
+    }
+
+    return dummy.next;
+}
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+int main() {
+    
+    struct Node* list1 = createNode(1);
+    list1->next = createNode(3);
+    list1->next->next = createNode(5);
+
+    
+    struct Node* list2 = createNode(2);
+    list2->next = createNode(4);
+    list2->next->next = createNode(6);
+
+    printf("List 1: \n");
+    printList(list1);
+
+    printf("List 2: \n");
+    printList(list2);
+
+    
+    struct Node* mergedList = mergeSortedLists(list1, list2);
+
+    printf("Merged List: \n");
+    printList(mergedList);
+
+    return 0;
+}
+
+
+
+8.#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+void findNthFromEnd(struct Node* head, int n) {
+    struct Node* first = head;
+    struct Node* second = head;
+
+    
+    for (int i = 0; i < n; i++) {
+        if (first == NULL) {
+            printf("The list has fewer than %d nodes.\n", n);
+            return;
+        }
+        first = first->next;
+    }
+
+    
+    while (first != NULL) {
+        first = first->next;
+        second = second->next;
+    }
+
+    
+    printf("The %d-th node from the end is: %d\n", n, second->data);
+}
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Memory allocation error\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+int main() {
+    
+    struct Node* head = createNode(10);
+    head->next = createNode(20);
+    head->next->next = createNode(30);
+    head->next->next->next = createNode(40);
+    head->next->next->next->next = createNode(50);
+
+    
+    int n = 2;
+    findNthFromEnd(head, n);
+
+    
+    struct Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}
+
+9.#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+void detectAndRemoveLoop(struct Node* head) {
+    struct Node *slow = head, *fast = head;
+
+    
+    while (slow != NULL && fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        
+        if (slow == fast) {
+            printf("Loop detected.\n");
+            
+            removeLoop(slow, head);
+            return;
+        }
+    }
+    printf("No loop detected.\n");
+}
+
+
+void removeLoop(struct Node* loopNode, struct Node* head) {
+    struct Node* ptr1 = head;
+    struct Node* ptr2;
+
+    while (1) {
+        ptr2 = loopNode;
+
+        
+        while (ptr2->next != loopNode && ptr2->next != ptr1) {
+            ptr2 = ptr2->next;
+        }
+
+        
+        if (ptr2->next == ptr1) {
+            break;
+        }
+
+        ptr1 = ptr1->next;
+    }
+
+    
+    ptr2->next = NULL;
+    printf("Loop removed.\n");
+}
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+int main() {
+    struct Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+    head->next->next->next->next = createNode(5);
+
+    
+    head->next->next->next->next->next = head->next; 
+    
+    detectAndRemoveLoop(head);
+
+    printf("Linked List after removing loop: \n");
+    printList(head);
+
+    return 0;
+}
+
+
+10.#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* reverseList(struct Node* head) {
+    struct Node* prev = NULL;
+    struct Node* current = head;
+    struct Node* next = NULL;
+
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+
+    return prev;
+}
+
+bool isPalindrome(struct Node* head) {
+    if (head == NULL || head->next == NULL) {
+        return true;
+    }
+
+    
+    struct Node* slow = head;
+    struct Node* fast = head;
+
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    
+    struct Node* secondHalf = reverseList(slow);
+    struct Node* secondHalfCopy = secondHalf; 
+
+    
+    struct Node* firstHalf = head;
+    bool isPalin = true;
+
+    while (secondHalf != NULL) {
+        if (firstHalf->data != secondHalf->data) {
+            isPalin = false;
+            break;
+        }
+        firstHalf = firstHalf->next;
+        secondHalf = secondHalf->next;
+    }
+
+    
+    reverseList(secondHalfCopy);
+
+    return isPalin;
+}
+
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+int main() {
+    
+    struct Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(2);
+    head->next->next->next->next = createNode(1);
+
+    printf("Linked List: \n");
+    printList(head);
+
+    if (isPalindrome(head)) {
+        printf("The linked list is a palindrome.\n");
+    } else {
+        printf("The linked list is not a palindrome.\n");
+    }
+
+    return 0;
+}
+
+
+
+11.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void removeDuplicates(struct Node* head) {
+    struct Node* current = head;
+
+    while (current != NULL && current->next != NULL) {
+        struct Node* runner = current;
+
+        while (runner->next != NULL) {
+            if (runner->next->data == current->data) {
+                struct Node* temp = runner->next;
+                runner->next = runner->next->next;
+                free(temp); 
+            } else {
+                runner = runner->next;
+            }
+        }
+        current = current->next;
+    }
+}
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(2);
+    head->next->next->next->next = createNode(4);
+    head->next->next->next->next->next = createNode(3);
+
+    printf("Original Linked List: \n");
+    printList(head);
+
+    removeDuplicates(head);
+
+    printf("Linked List after removing duplicates: \n");
+    printList(head);
+
+    return 0;
+}
+
+
+
+12.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+int getLength(struct Node* head) {
+    int length = 0;
+    struct Node* temp = head;
+    while (temp != NULL) {
+        length++;
+        temp = temp->next;
+    }
+    return length;
+}
+
+struct Node* findIntersection(struct Node* head1, struct Node* head2) {
+    int len1 = getLength(head1);
+    int len2 = getLength(head2);
+
+    int diff = abs(len1 - len2);
+
+    struct Node* temp1 = head1;
+    struct Node* temp2 = head2;
+
+    if (len1 > len2) {
+        for (int i = 0; i < diff; i++) {
+            temp1 = temp1->next;
+        }
+    } else {
+        for (int i = 0; i < diff; i++) {
+            temp2 = temp2->next;
+        }
+    }
+
+    while (temp1 != NULL && temp2 != NULL) {
+        if (temp1 == temp2) {
+            return temp1; 
+        }
+        temp1 = temp1->next;
+        temp2 = temp2->next;
+    }
+
+    return NULL; 
+}
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head1 = createNode(1);
+    head1->next = createNode(2);
+    head1->next->next = createNode(3);
+    head1->next->next->next = createNode(4);
+
+    struct Node* head2 = createNode(5);
+    head2->next = createNode(6);
+
+    head2->next->next = head1->next->next; // Intersection at node 3
+
+    struct Node* intersection = findIntersection(head1, head2);
+
+    if (intersection != NULL) {
+        printf("Intersection point: %d\n", intersection->data);
+    } else {
+        printf("No intersection point.\n");
+    }
+
+    return 0;
+}
+
+
+
+13.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+int getLength(struct Node* head) {
+    int length = 0;
+    struct Node* temp = head;
+    while (temp != NULL) {
+        length++;
+        temp = temp->next;
+    }
+    return length;
+}
+
+struct Node* findIntersection(struct Node* head1, struct Node* head2) {
+    int len1 = getLength(head1);
+    int len2 = getLength(head2);
+
+    int diff = abs(len1 - len2);
+
+    struct Node* temp1 = head1;
+    struct Node* temp2 = head2;
+
+    if (len1 > len2) {
+        for (int i = 0; i < diff; i++) {
+            temp1 = temp1->next;
+        }
+    } else {
+        for (int i = 0; i < diff; i++) {
+            temp2 = temp2->next;
+        }
+    }
+
+    while (temp1 != NULL && temp2 != NULL) {
+        if (temp1 == temp2) {
+            return temp1; 
+        }
+        temp1 = temp1->next;
+        temp2 = temp2->next;
+    }
+
+    return NULL; // No intersection
+}
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head1 = createNode(1);
+    head1->next = createNode(2);
+    head1->next->next = createNode(3);
+    head1->next->next->next = createNode(4);
+
+    struct Node* head2 = createNode(5);
+    head2->next = createNode(6);
+
+    head2->next->next = head1->next->next; 
+
+    struct Node* intersection = findIntersection(head1, head2);
+
+    if (intersection != NULL) {
+        printf("Intersection point: %d\n", intersection->data);
+    } else {
+        printf("No intersection point.\n");
+    }
+
+    return 0;
+}
+
+
+
+14.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = newNode; 
+    return newNode;
+}
+
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct Node* temp = *head;
+        
+        while (temp->next != *head) {
+            temp = temp->next;
+        }
+        
+        temp->next = newNode;
+        newNode->next = *head;
+    }
+}
+
+void printList(struct Node* head) {
+    if (head == NULL) {
+        printf("The list is empty.\n");
+        return;
+    }
+    
+    struct Node* temp = head;
+    do {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    } while (temp != head);
+    printf("...\n");
+}
+
+void splitCircularList(struct Node* head, struct Node** head1, struct Node** head2) {
+    if (head == NULL) {
+        return;
+    }
+    
+    struct Node* slow = head;
+    struct Node* fast = head;
+    
+    while (fast->next != head && fast->next->next != head) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    
+    *head1 = head;               
+    *head2 = slow->next;         
+    slow->next = head;           
+    
+    struct Node* temp = *head2;
+    while (temp->next != head) {
+        temp = temp->next;
+    }
+    temp->next = *head2;
+}
+
+int main() {
+    struct Node* head = NULL;
+    
+    insertEnd(&head, 1);
+    insertEnd(&head, 2);
+    insertEnd(&head, 3);
+    insertEnd(&head, 4);
+    insertEnd(&head, 5);
+    
+    printf("Original Circular Linked List: \n");
+    printList(head);
+
+    struct Node* head1 = NULL;
+    struct Node* head2 = NULL;
+    
+    splitCircularList(head, &head1, &head2);
+    
+    printf("First Half: \n");
+    printList(head1);
+    
+    printf("Second Half: \n");
+    printList(head2);
+    
+    return 0;
+}
+
+
+
+15.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int getLength(struct Node* head) {
+    int length = 0;
+    struct Node* temp = head;
+    while (temp != NULL) {
+        length++;
+        temp = temp->next;
+    }
+    return length;
+}
+
+void rotateLeft(struct Node** head, int k) {
+    if (*head == NULL || k == 0) return;
+
+    int length = getLength(*head);
+    k = k % length;  
+    if (k == 0) return;  
+
+    struct Node* temp = *head;
+    struct Node* prev = NULL;
+
+    for (int i = 0; i < k; i++) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    prev->next = NULL;  
+    struct Node* newHead = temp;
+
+    struct Node* last = newHead;
+    while (last->next != NULL) {
+        last = last->next;
+    }
+    last->next = *head;  
+
+    *head = newHead;  
+}
+
+void rotateRight(struct Node** head, int k) {
+    if (*head == NULL || k == 0) return;
+
+    int length = getLength(*head);
+    k = k % length;  
+    
+    if (k == 0) return;
+    rotateLeft(head, length - k);
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    insertEnd(&head, 1);
+    insertEnd(&head, 2);
+    insertEnd(&head, 3);
+    insertEnd(&head, 4);
+    insertEnd(&head, 5);
+
+    printf("Original Linked List: \n");
+    printList(head);
+
+    int k = 2;  
+
+    rotateLeft(&head, k);
+    printf("Linked List after Left Rotation by %d: \n", k);
+    printList(head);
+
+    insertEnd(&head, 1);
+    printf("Original Linked List restored for Right Rotation: \n");
+    printList(head);
+
+    rotateRight(&head, k);
+    printf("Linked List after Right Rotation by %d: \n", k);
+    printList(head);
+
+    return 0;
+}
+
+
+
+16.clone a list
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int val;
+    struct Node* next;
+    struct Node* random;
+} Node;
+
+Node* createNode(int val) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->val = val;
+    newNode->next = NULL;
+    newNode->random = NULL;
+    return newNode;
+}
+
+Node* cloneRecursive(Node* node, Node** visited) {
+    if (!node) return NULL;
+
+    if (visited[node->val]) return visited[node->val];
+
+    Node* clonedNode = createNode(node->val);
+    visited[node->val] = clonedNode;
+
+    clonedNode->next = cloneRecursive(node->next, visited);
+    clonedNode->random = cloneRecursive(node->random, visited);
+
+    return clonedNode;
+}
+
+Node* cloneLinkedList(Node* head) {
+    if (!head) return NULL;
+
+    // Create an array to track visited nodes
+    Node* visited[100] = {0};
+
+    return cloneRecursive(head, visited);
+}
+
+void printList(Node* head) {
+    Node* current = head;
+    while (current) {
+        printf("Value: %d, Random: %d\n", current->val,
+               current->random ? current->random->val : -1);
+        current = current->next;
+    }
+}
+
+int main() {
+    Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+
+    head->random = head->next->next;  // 1 -> 3
+    head->next->random = head;        // 2 -> 1
+    head->next->next->random = head->next; // 3 -> 2
+
+    Node* clonedList = cloneLinkedList(head);
+
+    printf("Original List:\n");
+    printList(head);
+
+    printf("\nCloned List:\n");
+    printList(clonedList);
+
+    return 0;
+}
+
+
+
+17.merge sort
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+Node* findMiddle(Node* head) {
+    if (!head) return NULL;
+    Node* slow = head;
+    Node* fast = head->next;
+
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}
+
+Node* merge(Node* left, Node* right) {
+    if (!left) return right;
+    if (!right) return left;
+
+    if (left->data <= right->data) {
+        left->next = merge(left->next, right);
+        return left;
+    } else {
+        right->next = merge(left, right->next);
+        return right;
+    }
+}
+
+Node* mergeSort(Node* head) {
+    if (!head || !head->next) return head;
+
+    Node* middle = findMiddle(head);
+    Node* left = head;
+    Node* right = middle->next;
+    middle->next = NULL;  
+    left = mergeSort(left);
+    right = mergeSort(right);
+
+    return merge(left, right);
+}
+
+void printList(Node* head) {
+    while (head) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    Node* head = createNode(4);
+    head->next = createNode(2);
+    head->next->next = createNode(1);
+    head->next->next->next = createNode(3);
+
+    printf("Original List:\n");
+    printList(head);
+
+    head = mergeSort(head);
+
+    printf("\nSorted List:\n");
+    printList(head);
+
+    return 0;
+}
+
+
+
+18.function to add two numbers represented by linked list
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void appendNode(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    Node* current = *head;
+    while (current->next) {
+        current = current->next;
+    }
+    current->next = newNode;
+}
+
+Node* addTwoNumbers(Node* l1, Node* l2) {
+    Node* result = NULL;
+    Node* tail = NULL;
+    int carry = 0;
+
+    while (l1 || l2 || carry) {
+        int sum = carry;
+        if (l1) {
+            sum += l1->data;
+            l1 = l1->next;
+        }
+        if (l2) {
+            sum += l2->data;
+            l2 = l2->next;
+        }
+
+        carry = sum / 10;
+        int digit = sum % 10;
+
+        if (result == NULL) {
+            result = createNode(digit);
+            tail = result;
+        } else {
+            tail->next = createNode(digit);
+            tail = tail->next;
+        }
+    }
+
+    return result;
+}
+
+void printList(Node* head) {
+    while (head) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    Node* l1 = NULL;
+    appendNode(&l1, 2);
+    appendNode(&l1, 4);
+    appendNode(&l1, 3);
+
+    Node* l2 = NULL;
+    appendNode(&l2, 5);
+    appendNode(&l2, 6);
+    appendNode(&l2, 4);
+
+    printf("First Number: ");
+    printList(l1);
+
+    printf("Second Number: ");
+    printList(l2);
+
+    Node* result = addTwoNumbers(l1, l2);
+
+    printf("Result: ");
+    printList(result);
+
+    return 0;
+}
+
+
+
+19.#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+Node* reverseKGroup(Node* head, int k) {
+    if (!head || k == 1) return head;
+
+    Node* temp = head;
+    int count = 0;
+    while (temp) {
+        count++;
+        temp = temp->next;
+    }
+
+    Node* dummy = createNode(0);
+    dummy->next = head;
+
+    Node *prev = dummy, *curr = dummy, *next = dummy;
+    while (count >= k) {
+        curr = prev->next;
+        next = curr->next;
+
+        for (int i = 1; i < k; i++) {
+            curr->next = next->next;
+            next->next = prev->next;
+            prev->next = next;
+            next = curr->next;
+        }
+
+        prev = curr;
+        count -= k;
+    }
+
+    return dummy->next;
+}
+
+void printList(Node* head) {
+    while (head) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+    head->next->next->next->next = createNode(5);
+
+    printf("Original List:\n");
+    printList(head);
+
+    int k = 3;
+    head = reverseKGroup(head, k);
+
+    printf("\nList after reversing in groups of %d:\n", k);
+    printList(head);
+
+    return 0;
+}
+
+
+
+20.#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+int detectAndCountLoop(Node* head) {
+    Node* slow = head;
+    Node* fast = head;
+
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) {
+            int loopLength = 1;
+            Node* temp = slow;
+
+            while (temp->next != slow) {
+                loopLength++;
+                temp = temp->next;
+            }
+
+            return loopLength;
+        }
+    }
+
+    return 0;
+}
+
+int main() {
+    Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+    head->next->next->next->next = createNode(5);
+
+    head->next->next->next->next->next = head->next->next;
+
+    int loopLength = detectAndCountLoop(head);
+
+    if (loopLength > 0) {
+        printf("Loop detected with length: %d\n", loopLength);
+    } else {
+        printf("No loop detected.\n");
+    }
+
+    return 0;
+}
+
+
+21.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+struct Node* findLoopStart(struct Node* head) {
+    struct Node *slow = head, *fast = head;
+
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) {
+            break;
+        }
+    }
+
+    if (fast == NULL || fast->next == NULL) {
+        return NULL;
+    }
+
+    slow = head;
+    while (slow != fast) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+
+    return slow; 
+}
+
+void printList(struct Node* head) {
+    struct Node* current = head;
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+    head->next->next->next->next = createNode(5);
+
+    head->next->next->next->next->next = head->next->next;
+
+    struct Node* loopStart = findLoopStart(head);
+    if (loopStart != NULL) {
+        printf("Loop starts at node with data: %d\n", loopStart->data);
+    } else {
+        printf("No loop detected in the linked list.\n");
+    }
+
+    return 0;
+}
+
+
+22.#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+void zigzagList(struct Node* head) {
+    if (!head || !head->next) return;
+
+    struct Node* current = head;
+    int flag = 1; // 1 means '<', 0 means '>'
+
+    while (current->next != NULL) {
+        if (flag) { // "<" relation
+            if (current->data > current->next->data) {
+                int temp = current->data;
+                current->data = current->next->data;
+                current->next->data = temp;
+            }
+        } else { // ">" relation
+            if (current->data < current->next->data) {
+                int temp = current->data;
+                current->data = current->next->data;
+                current->next->data = temp;
+            }
+        }
+        flag = !flag;
+        current = current->next;
+    }
+}
+
+int main() {
+    struct Node* head = createNode(4);
+    head->next = createNode(3);
+    head->next->next = createNode(7);
+    head->next->next->next = createNode(8);
+    head->next->next->next->next = createNode(6);
+    head->next->next->next->next->next = createNode(2);
+    head->next->next->next->next->next->next = createNode(1);
+
+    printf("Original List:\n");
+    printList(head);
+
+    zigzagList(head);
+
+    printf("Zigzag List:\n");
+    printList(head);
+
+    return 0;
+}
+
+
+
+23.
