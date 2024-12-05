@@ -41,7 +41,8 @@ int main()
     return 0;
 }
 
-2.#include <stdio.h>
+2.Insert a node at the beginning, middle, and end of a singly linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
@@ -127,7 +128,8 @@ int main() {
 }
 
 
-3. #include <stdio.h>
+3.Delete a node from the beginning, middle, and end of a singly linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -243,7 +245,8 @@ int main() {
 }
 
 
-4.#include <stdio.h>
+4.Count the number of nodes in a linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -301,7 +304,8 @@ int main() {
 }
 
 
-5.#include <stdio.h>
+5.Search for a given value in a linked list.
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -364,7 +368,8 @@ int main() {
     return 0;
 }
 
-6.#include <stdio.h>
+6.Reverse a singly linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -426,7 +431,8 @@ int main() {
 }
 
 
-7.#include <stdio.h>
+7.Merge two sorted linked lists into a single sorted list.
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -510,7 +516,8 @@ int main() {
 
 
 
-8.#include <stdio.h>
+8.Find the nth node from the end of a linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -579,7 +586,8 @@ int main() {
     return 0;
 }
 
-9.#include <stdio.h>
+9.Detect a loop in a linked list and remove it.
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -672,7 +680,8 @@ int main() {
 }
 
 
-10.#include <stdio.h>
+10.Check if a linked list is a palindrome.
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -774,7 +783,8 @@ int main() {
 
 
 
-11.#include <stdio.h>
+11.Remove duplicate nodes from an unsorted linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
@@ -838,7 +848,8 @@ int main() {
 
 
 
-12.#include <stdio.h>
+12.Find the intersection point of two linked lists.
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
@@ -926,7 +937,8 @@ int main() {
 
 
 
-13.#include <stdio.h>
+13.Split a circular linked list into two halves.
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
@@ -1014,7 +1026,8 @@ int main() {
 
 
 
-14.#include <stdio.h>
+14.Rotate a linked list to the left or right by k positions.
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
@@ -1112,7 +1125,8 @@ int main() {
 
 
 
-15.#include <stdio.h>
+15.Swap two nodes in a linked list without swapping data.
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
@@ -1476,7 +1490,8 @@ int main() {
 
 
 
-19.#include <stdio.h>
+19.Reverse nodes in k-group chunks of a linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct Node {
@@ -1552,7 +1567,8 @@ int main() {
 
 
 
-20.#include <stdio.h>
+20.Detect and find the length of a loop in a linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct Node {
@@ -1612,7 +1628,8 @@ int main() {
 }
 
 
-21.#include <stdio.h>
+21.Find the starting node of a loop in a linked list.
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
@@ -1681,7 +1698,8 @@ int main() {
 }
 
 
-22.#include <stdio.h>
+22.Rearrange a linked list into alternating high-low elements (zigzag order).
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node {
